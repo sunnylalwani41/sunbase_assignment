@@ -26,14 +26,14 @@ import sunbase.model.Customer;
 import sunbase.repository.CustomerRepo;
 
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private CustomerRepo customerRepo;
 
 	@Override
 	public Customer addCustomer(Customer customer) {
 		customer.setUuid(UUID.randomUUID().toString());
-		
+
 		return customerRepo.save(customer);
 	}
 
@@ -43,24 +43,37 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
-	public List<Customer> getListOfCustomer(Integer pageNumber, String sortingField) {
+	public List<Customer> getListOfCustomer(String sortingField, String value) {
 		Sort sort = Sort.by(sortingField).ascending();
+
+		Pageable pageable = PageRequest.of(0, 10, sort);
+		Page<Customer> page = null;
 		
-		Pageable pageable = PageRequest.of(pageNumber-1, 5, sort);
-		Page<Customer> page= customerRepo.findAll(pageable);
-		
+		if(sortingField.equals("firstName")) {
+			page = customerRepo.findByFirstName(value, pageable);
+		}
+		else if(sortingField.equals("city")) {
+			page = customerRepo.findByCity(value, pageable);
+		}
+		else if(sortingField.equals("email")) {
+			page = customerRepo.findByEmail(value, pageable);
+		}
+		else {
+			page = customerRepo.findByPhone(value, pageable);
+		}
+
 		return page.getContent();
 	}
 
 	@Override
 	public Customer getCustomerById(String uuId) throws CustomerException {
-		return customerRepo.findById(uuId).orElseThrow(()-> new CustomerException("Invalid Id"));
+		return customerRepo.findById(uuId).orElseThrow(() -> new CustomerException("Invalid Id"));
 	}
 
 	@Override
-	public Customer deleteCustomerById(String uuId)throws CustomerException {
+	public Customer deleteCustomerById(String uuId) throws CustomerException {
 		Customer customer = getCustomerById(uuId);
-		
+
 		customerRepo.delete(customer);
 		return customer;
 	}
@@ -68,54 +81,63 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public List<Customer> syncCustomer() throws IOException {
 		String token = getToken();
-		return getCustomerListByRemoteApi(token);
+		System.out.println(token);
+		List<Customer> customers=  getCustomerListByRemoteApi(token);
+		
+		return customerRepo.saveAll(customers);
 	}
-	
+
 	private String getToken() throws IOException {
 		Map<String, Object> map = new HashMap<>();
-		ObjectMapper objectMapper = new ObjectMapper();
-		
-		map.put("login_id", "test@sunbasedata.com");
-		map.put("password","Test@123");
-		
-		String data= objectMapper.writeValueAsString(map);
-		
-		OkHttpClient client = new OkHttpClient().newBuilder()
-		  .build();
-		
-		MediaType mediaType = MediaType.parse("application/json");
-		
-		RequestBody body = RequestBody.create(mediaType, data);
-		
-		Request request = new Request.Builder()
-		  .url("https://qa.sunbasedata.com/sunbase/portal/api/assignment_auth.jsp")
-		  .method("POST", body)
-		  .addHeader("Content-Type", "application/json")
-		  .build();
+	    ObjectMapper objectMapper = new ObjectMapper();
+
+	    map.put("login_id", "test@sunbasedata.com");
+	    map.put("password", "Test@123");
+
+	    String data = objectMapper.writeValueAsString(map);
+
+	    OkHttpClient client = new OkHttpClient().newBuilder().build();
+	    MediaType mediaType = MediaType.parse("application/json");
+
+	    RequestBody body = RequestBody.create(mediaType, data);
+
+	    Request request = new Request.Builder()
+	        .url("https://qa.sunbasedata.com/sunbase/portal/api/assignment_auth.jsp")
+	        .method("POST", body)
+	        .addHeader("Content-Type", "application/json")
+	        .build();
 		
 		Response response = client.newCall(request).execute();
 		
-		return response.body().string();
+		String responseBody = response.body().string();
+
+		Map<String, String> responseMap = objectMapper.readValue(responseBody, new TypeReference<Map<String, String>>() {});
+		String accessToken = responseMap.get("access_token");
+		
+		return accessToken;
 	}
-	
-	private List<Customer> getCustomerListByRemoteApi(String token) throws IOException{
-		OkHttpClient client = new OkHttpClient().newBuilder()
-			  .build();
-			
+
+	private List<Customer> getCustomerListByRemoteApi(String token) throws IOException {
+		OkHttpClient client = new OkHttpClient().newBuilder().build();
+
 		MediaType mediaType = MediaType.parse("text/plain");
-			
+
 		RequestBody body = RequestBody.create(mediaType, "");
-			
+
 		Request request = new Request.Builder()
-		  .url("https://qa.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=get_customer_list")
-		  .method("GET", body)
-		  .addHeader("Authorization", "Bearer "+token)
-		  .build();
-			
+				.url("https://qa.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=get_customer_list")
+				.addHeader("Authorization", "Bearer " + token).build();
+
 		Response response = client.newCall(request).execute();
-		
+
 		ObjectMapper objectMapper = new ObjectMapper();
-		
-		return objectMapper.readValue(response.body().string(),new TypeReference<List<Customer>>() {});
+
+		return objectMapper.readValue(response.body().string(), new TypeReference<List<Customer>>() {
+		});
+	}
+
+	@Override
+	public List<Customer> getAllCustomer() {
+		return customerRepo.findAll();
 	}
 }

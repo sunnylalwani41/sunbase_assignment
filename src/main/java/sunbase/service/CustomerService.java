@@ -11,11 +11,13 @@ public interface CustomerService {
 	
 	public Customer updateCustomer(Customer customer);
 	
-	public List<Customer> getListOfCustomer(Integer pageNumber, String sortingField);
+	public List<Customer> getListOfCustomer(String sortingField, String value);
 	
 	public Customer getCustomerById(String uuId) throws CustomerException;
 	
 	public Customer deleteCustomerById(String uuId)throws CustomerException;
 	
 	public List<Customer> syncCustomer() throws IOException;
+	
+	public List<Customer> getAllCustomer();
 }

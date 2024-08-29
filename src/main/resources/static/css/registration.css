@@ -1,0 +1,17 @@
+form{
+	margin: auto;
+	width: 30%;
+	border: 1px solid black;
+	padding: 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+}
+
+form>div{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+

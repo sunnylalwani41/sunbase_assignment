@@ -5,8 +5,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class JspPageMappingController {
-	@GetMapping("/signIn")
-	public String signIn() {
-		return "signIn";
+	@GetMapping("registrationAdmin")
+	public String registrationAdmin() {
+		return "registrationAdmin";
+	}
+	
+	@GetMapping("customerDetail")
+	public String customerDetail() {
+		return "customerDetail";
+	}
+	
+	@GetMapping("addCustomerDetail")
+	public String addCustomerDetail() {
+		return "addCustomerDetail";
 	}
 }

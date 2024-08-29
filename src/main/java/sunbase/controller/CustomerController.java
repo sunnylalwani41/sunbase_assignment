@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,7 @@ import sunbase.model.Customer;
 import sunbase.service.CustomerService;
 
 @RestController
+@RequestMapping("/customers")
 public class CustomerController {
 	@Autowired
 	CustomerService customerService;
@@ -35,9 +37,9 @@ public class CustomerController {
 		return new ResponseEntity<Customer>(customerService.updateCustomer(customer), HttpStatus.ACCEPTED);
 	}
 
-	@GetMapping("/getCustomerList/{pageNumber}")
-	public ResponseEntity<List<Customer>> getCustomerList(@RequestParam String field, @PathVariable Integer pageNumber) {
-		return new ResponseEntity<> (customerService.getListOfCustomer(pageNumber, field), HttpStatus.OK);
+	@GetMapping("/getCustomerList")
+	public ResponseEntity<List<Customer>> getCustomerList(@RequestParam String field, @RequestParam String value) {
+		return new ResponseEntity<> (customerService.getListOfCustomer(field, value), HttpStatus.OK);
 	}
 
 	@GetMapping("/getCustomerById/{uuId}")
@@ -50,8 +52,13 @@ public class CustomerController {
 		return new ResponseEntity<Customer>(customerService.deleteCustomerById(uuId), HttpStatus.OK);
 	}
 
-	@GetMapping("/getCustomerByRemoteApi")
+	@PostMapping("/getCustomerByRemoteApi")
 	public ResponseEntity<List<Customer>> getCustomerByRemoteApi() throws IOException {
 		return new ResponseEntity<>(customerService.syncCustomer(), HttpStatus.ACCEPTED);
+	}
+	
+	@GetMapping("getAllCustomer")
+	public ResponseEntity<List<Customer>> getAllCustomer() throws IOException {
+		return new ResponseEntity<>(customerService.getAllCustomer(), HttpStatus.ACCEPTED);
 	}
 }

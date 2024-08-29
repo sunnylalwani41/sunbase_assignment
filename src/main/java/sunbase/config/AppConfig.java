@@ -44,8 +44,7 @@ public class AppConfig {
 		.authorizeHttpRequests(auth ->{
 			auth
 			.requestMatchers(HttpMethod.POST,"/register").permitAll()
-			.requestMatchers(HttpMethod.GET,"/hello").permitAll()
-			.requestMatchers(HttpMethod.GET, "/customers/**").hasRole("ADMIN")
+			.requestMatchers(HttpMethod.GET,"/registrationAdmin").permitAll()
 			.anyRequest().authenticated();
 			})
 			.csrf(csrf -> csrf.disable())
