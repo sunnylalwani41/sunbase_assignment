@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import sunbase.exception.AdminException;
 import sunbase.model.Admin;
 import sunbase.service.AdminService;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -24,9 +26,15 @@ public class AdminController {
 	@PostMapping("/register")
 	public ResponseEntity<Admin> registerAdmin(@RequestBody Admin admin) throws AdminException {
 		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+		admin.setRole("ADMIN");
 		
 		admin = adminService.registerAdmin(admin);
 		
 		return new ResponseEntity<>(admin, HttpStatus.ACCEPTED);
+	}
+	
+	@GetMapping("/customers")
+	public String customers() {
+		return "hello";
 	}
 }
