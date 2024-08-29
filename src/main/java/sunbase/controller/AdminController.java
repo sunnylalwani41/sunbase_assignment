@@ -32,9 +32,4 @@ public class AdminController {
 		
 		return new ResponseEntity<>(admin, HttpStatus.ACCEPTED);
 	}
-	
-	@GetMapping("/customers")
-	public String customers() {
-		return "hello";
-	}
 }
