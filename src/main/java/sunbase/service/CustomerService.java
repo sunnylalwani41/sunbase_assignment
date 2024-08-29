@@ -11,7 +11,7 @@ public interface CustomerService {
 	
 	public Customer updateCustomer(Customer customer);
 	
-	public List<Customer> getListOfCustomer(Integer pageNumber, Integer numberOfCustomer, String sortingField, String sortingOrder);
+	public List<Customer> getListOfCustomer(Integer pageNumber, String sortingField);
 	
 	public Customer getCustomerById(String uuId) throws CustomerException;
 	

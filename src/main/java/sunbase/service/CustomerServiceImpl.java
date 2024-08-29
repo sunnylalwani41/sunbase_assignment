@@ -43,18 +43,10 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
-	public List<Customer> getListOfCustomer(Integer pageNumber, Integer numberOfCustomer, String sortingField,
-			String sortingOrder) {
-		Sort sort = null;
+	public List<Customer> getListOfCustomer(Integer pageNumber, String sortingField) {
+		Sort sort = Sort.by(sortingField).ascending();
 		
-		if(sortingOrder.equals("asc")) {
-			sort = Sort.by(sortingField).ascending();
-		}
-		else {
-			sort = Sort.by(sortingField).descending();
-		}
-		
-		Pageable pageable = PageRequest.of(pageNumber-1, numberOfCustomer, sort);
+		Pageable pageable = PageRequest.of(pageNumber-1, 5, sort);
 		Page<Customer> page= customerRepo.findAll(pageable);
 		
 		return page.getContent();
