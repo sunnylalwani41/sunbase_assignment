@@ -104,7 +104,7 @@ document.getElementById("syncButton").addEventListener("click", ()=>{
 	$.ajax({
 		url:`customers/getCustomerByRemoteApi`,
 	    contentType: "application/json",
-	    type: "post",
+	    type: "get",
 	    dataType: "json",
 	    success: function (response) {
 	        console.log(response);

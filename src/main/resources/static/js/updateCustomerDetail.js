@@ -27,7 +27,7 @@ document.getElementById("form").addEventListener("submit", (event)=>{
 		url:"customers/customerUpdate",
 		data: JSON.stringify(data),
 	    contentType: "application/json",
-	    type: "post",
+	    type: "put",
 	    dataType: "json",
 	    success: function (response) {
 	        console.log(response);
