@@ -2,59 +2,67 @@
 
 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqlqJcsVPgclNQn9J15EwRK8D36WbK5Zwj7Q&s" />
 
-## Stripe Payment Gateway Integration
+## Customer Detail Service
 
- **REST API SERVICE**
+ **Web SERVICE**
 
-The **Portone Assignment** is a REST API and it is integrate the Stripe Payment Gateway which allows to perform the **Create Payment Intent**, **Capture the Created Payment Intent**, **Create the Refund** and **Get All Payment Intent**.
+The **Sunbase Assignment** is a Web Service and it is integrate with REST API by which easily perform tasks:  **Add Customer**, **Update Customer**, **Delete Customer** and **Search Customer**.
 
-The **Portone Assignment** REST API simplified Exception Handling for layman's easy understanding. 
-
-The API's primary objective is to provide to the customer **with a seamless experience and user-friendly environment during online payment.**
+The API's primary objective is to provide to the customer details **with a seamless experience and user-friendly environment.**
 
 The API's Services consist the following points with HTTP Methods:
+
 |S.No. | End Point | HTTP Method |
 |:-----:|:-------|:----------:|
-| 1 | ```/api/v1/create_intent``` | POST |
-| 2 | ```/api/v1/attach_payment_metho``` | POST |
-| 3 | ```/api/v1/capture_intent/{id}``` | POST |
-| 4 | ```/api/v1/create_refund/{id}``` | POST |
-| 5 | ```/api/v1/get_intents``` | GET |
+| 1 | ```/customers/customerAdd``` | POST |
+| 2 | ```/customers/customerUpdate``` | POST |
+| 3 | ```/customers/getCustomerList``` | GET |
+| 4 | ```/customers/getCustomerById/{uuId}``` | GET |
+| 5 | ```/customers/deleteCustomer/{uuId}``` | DELETE |
+| 6 | ```/customers/getCustomerByRemoteApi``` | POST |
+| 7 | ```/customers/getAllCustomer``` | GET |
+
 
 ## Tech Stack
 
 - JAVA
-- SPRING
 - SPRINGBOOT
 - MAVEN
-- SWAGGER UI
+- SPRING SECURITY
+- JWT TOKEN
+- MYSQL
 
 ## Dependencies
 
 - SPRING BOOT DEVTOOLS
 - SPRING WEB
 - LOMBOK
-- SWAGGER UI
+- JSP
+- MYSQL CONNECTOR
+- SPRING DATA JPA
+- SPRING SECURITY
+- JWT
   
 ## Modules
 
-- Payment Intent Module
-- Capture Module
-- Refund Module
+- Admin Module
+- Customer Module
+- Jsp Page Mapping Module
 - Exception Handler Module
 
 ## System Structure
 
-The REST API allows a Customer to **Create Payment**, **Capture Payment** **Refund Payment** & **Get All Payment Information** through the **browser** with appropriate Http Methods.
+The Web Service allows a Admin to **Add Customer**, **Update Customer**, **Delete Customer**, **Get All Customers** & **Sort and Find Customer** through the **browser**.
 
 ## About
-This assignment is for **portone.io**, This is an online accept the payment (payment gateway) Rest API. We built this Rest API assignment Within 2 days and Please [click here for Demo Video](https://drive.google.com/file/d/1h5YWO9Tjh-r-Aey1Fn6W5U5pkTKz143j/view?usp=sharing).
+This assignment is for **Sunbase**, This is a Customer Detail Information Web Service. We built this Web Service with Rest API assignment Within 2 days and Please [click here for Demo Video](https://drive.google.com/file/d/1N2zoV6LmyX9ZOvNnPh7P9I8K1L8xFg9H/view?usp=drive_link).
 
 ## Feature
-- Create Payment
-- Capture Payment
-- Refund Payment
-- Get All Payment Information
+- Add Customer
+- Update Customer
+- Delete Customer
+- Get All Customers
+- Sort And Find Customer
 
 ## Installation And Run Project
 
