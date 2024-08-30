@@ -14,18 +14,19 @@
 	<link rel="stylesheet" href="css/addCustomerDetail.css">
 </head>
 <body>
-		<h3>Add Customer Detail</h3>
+		<h3>Update Customer Detail</h3>
 	<form id="form">
-		<input type="text" id="firstName" placeholder="First Name" required/>
-		<input type="text" id="lastName" placeholder="Last Name" required/>
-		<input type="text" id="street" placeholder="Street" required/>
-		<input type="text" id="address" placeholder="Address" required/>
-		<input type="text" id="city" placeholder="City" required/>
-		<input type="text" id="state" placeholder="State" required/>
-		<input type="email" id="email" placeholder="Email" required/>
-		<input type="text" id="phone" placeholder="Phone" required/>
+		<input type="hidden" id="uuid" name="uuid" required />
+		<input type="text" id="firstName" name="firstName" placeholder="First Name" required/>
+		<input type="text" id="lastName" name="lastName" placeholder="Last Name" required/>
+		<input type="text" id="street" name="street" placeholder="Street" required/>
+		<input type="text" id="address" name="address" placeholder="Address" required/>
+		<input type="text" id="city" name="city" placeholder="City" required/>
+		<input type="text" id="state" name="state" placeholder="State" required/>
+		<input type="email" id="email" name="email" placeholder="Email" required/>
+		<input type="text" id="phone" name="phone" placeholder="Phone" required/>
 		<button type="submit" class="btn btn-success">Submit Detail</button>
 	</form>
-	<script src="js/addCustomerDetail.js"></script>
+	<script src="js/updateCustomerDetail.js"></script>
 </body>
 </html>

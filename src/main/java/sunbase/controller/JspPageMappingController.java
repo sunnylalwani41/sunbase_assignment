@@ -10,7 +10,7 @@ public class JspPageMappingController {
 		return "registrationAdmin";
 	}
 	
-	@GetMapping("customerDetail")
+	@GetMapping("/")
 	public String customerDetail() {
 		return "customerDetail";
 	}
@@ -18,5 +18,10 @@ public class JspPageMappingController {
 	@GetMapping("addCustomerDetail")
 	public String addCustomerDetail() {
 		return "addCustomerDetail";
+	}
+	
+	@GetMapping("updateCustomerDetail")
+	public String updateCustomerDetail() {
+		return "updateCustomerDetail";
 	}
 }

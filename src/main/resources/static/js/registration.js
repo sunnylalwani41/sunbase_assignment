@@ -16,7 +16,7 @@ document.getElementById("form").addEventListener("submit", (event)=>{
 	    dataType: "json",
 	    success: function (response) {
 	        console.log(response);
-	        window.location.href= "/customerDetail";
+	        window.location.href= "/";
 	      },
 	      error: function (error) {
 			  console.log(error);

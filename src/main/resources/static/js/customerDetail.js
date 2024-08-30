@@ -1,17 +1,18 @@
 let showData = (data) =>{
 	let tbody = document.getElementsByTagName("tbody")[0];
 	
-	tbody.innerHtml = "";
+	tbody.innerHTML = "";
+	console.log(tbody);
 	
 	data.forEach(element =>{
 		let row = document.createElement("tr");
 		let firstName = document.createElement("td");
 		
-		firstName.innerText = element.firstName;
+		firstName.innerText = element.first_name;
 		
 		let lastName = document.createElement("td");
 		
-		lastName.innerText = element.lastName;
+		lastName.innerText = element.last_name;
 		
 		let address = document.createElement("td");
 		
@@ -50,20 +51,21 @@ let showData = (data) =>{
 		})
 		
 		action.append(deleteButton, updateButton);
-		tbody.append(firstName, lastName, address, city, state, email, phone, action);
+		row.append(firstName, lastName, address, city, state, email, phone, action);
+		tbody.append(row); 
 	})
 }
 
 let deleteCustomer = (uuid) =>{
 	$.ajax({
-		url:`customers/deleteCustomer${uuid}`,
+		url:`customers/deleteCustomer/${uuid}`,
 	    contentType: "application/json",
 	    type: "delete",
 	    dataType: "json",
 	    success: function (response) {
 	        console.log(response);
 	        alert("success");
-	        
+	        loadCustomer();
 	      },
 	      error: function (error) {
 			  console.log(error);
@@ -73,7 +75,7 @@ let deleteCustomer = (uuid) =>{
 };
 
 let editCustomer = (data) =>{
-	
+	window.location.href= `updateCustomerDetail?uuid=${encodeURIComponent(data.uuid)}&firstName=${encodeURIComponent(data.first_name)}&lastName=${encodeURIComponent(data.last_name)}&address=${encodeURIComponent(data.address)}&street=${encodeURIComponent(data.street)}&city=${encodeURIComponent(data.city)}&state=${encodeURIComponent(data.state)}&email=${encodeURIComponent(data.email)}&phone=${encodeURIComponent(data.phone)}`
 }
 
 document.getElementById("form").addEventListener("submit", (event)=>{
@@ -115,3 +117,21 @@ document.getElementById("syncButton").addEventListener("click", ()=>{
 	});
 })
 
+let loadCustomer = () =>{
+	$.ajax({
+		url:`customers/getAllCustomer`,
+	    contentType: "application/json",
+	    type: "get",
+	    dataType: "json",
+	    success: function (response) {
+	        console.log(response);
+	        showData(response);
+	      },
+	      error: function (error) {
+			  console.log(error);
+	        alert("failed");
+	      }
+	});
+}
+
+loadCustomer();
