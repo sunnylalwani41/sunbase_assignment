@@ -15,11 +15,11 @@ The API's Services consist the following points with HTTP Methods:
 |S.No. | End Point | HTTP Method |
 |:-----:|:-------|:----------:|
 | 1 | ```/customers/customerAdd``` | POST |
-| 2 | ```/customers/customerUpdate``` | POST |
+| 2 | ```/customers/customerUpdate``` | PUT |
 | 3 | ```/customers/getCustomerList``` | GET |
 | 4 | ```/customers/getCustomerById/{uuId}``` | GET |
 | 5 | ```/customers/deleteCustomer/{uuId}``` | DELETE |
-| 6 | ```/customers/getCustomerByRemoteApi``` | POST |
+| 6 | ```/customers/getCustomerByRemoteApi``` | GET |
 | 7 | ```/customers/getAllCustomer``` | GET |
 
 
