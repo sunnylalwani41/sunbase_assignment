@@ -47,7 +47,7 @@ The API's Services consist the following points with HTTP Methods:
 
 - Admin Module
 - Customer Module
-- Jsp Page Mapping Module
+- JSP Page Mapping Module
 - Exception Handler Module
 
 ## System Structure
